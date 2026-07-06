@@ -31,11 +31,17 @@ const data = generateIntersectionPattern({
     divisions: 180
 });
 
-console.log(data);
+console.log("DATA", data);
 
 const canvas = document.getElementById("canvas");
 
 renderPattern(canvas, data);
+
+}catch(e) {
+
+console.error("error",e);
+
+}
 </script>
 
 </body>
