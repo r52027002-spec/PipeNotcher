@@ -44,7 +44,7 @@ export function generateIntersectionPattern(options) {
     // ④ 枝管を回転（これが“パイプが刺さる”方向）
     branchPoints = branchPoints.map(p => rotatePoint(p, angleRad));
 
-// 👉 追加：位置決め
+// 追加：位置決め
 branchPoints = positionBranchPipe(branchPoints, 60);
 
     return {
@@ -207,4 +207,25 @@ export function positionBranchPipe(branchPoints, distance = 50) {
         x: p.x,
         y: p.y + distance
     }));
+}
+/**
+ * 相貫線プロファイルを計算する
+ *
+ * 現在は雛形のみ。
+ * 次のバージョンで実際の計算式を実装する。
+ */
+export function calculateIntersectionProfile(config) {
+
+    const result = [];
+
+    for (let i = 0; i <= config.divisions; i++) {
+
+        result.push({
+            x: i,
+            y: 0
+        });
+
+    }
+
+    return result;
 }
