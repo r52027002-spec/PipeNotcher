@@ -115,3 +115,35 @@ export function generateCirclePoints(diameter, divisions) {
 
     return points;
 }
+/**
+ * 2D点を回転させる
+ *
+ * @param {{x:number,y:number}} point
+ * @param {number} angleRad - ラジアン
+ * @returns {{x:number,y:number}}
+ */
+export function rotatePoint(point, angleRad) {
+
+    const cos = Math.cos(angleRad);
+    const sin = Math.sin(angleRad);
+
+    return {
+        x: point.x * cos - point.y * sin,
+        y: point.x * sin + point.y * cos
+    };
+}
+
+/**
+ * 点をオフセット（平行移動）
+ *
+ * @param {{x:number,y:number}} point
+ * @param {number} dx
+ * @param {number} dy
+ */
+export function translatePoint(point, dx, dy) {
+
+    return {
+        x: point.x + dx,
+        y: point.y + dy
+    };
+}
