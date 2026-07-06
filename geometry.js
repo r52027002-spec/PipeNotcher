@@ -91,3 +91,27 @@ function isValidPipe(diameter) {
 
     return PIPE_SIZES.includes(diameter);
 }
+/**
+ * 円周上の点列を生成する
+ *
+ * @param {number} diameter - 円の直径
+ * @param {number} divisions - 分割数
+ * @returns {Array<{x:number,y:number}>}
+ */
+export function generateCirclePoints(diameter, divisions) {
+
+    const radius = diameter / 2;
+    const points = [];
+
+    for (let i = 0; i <= divisions; i++) {
+
+        const angle = (Math.PI * 2 * i) / divisions;
+
+        const x = radius * Math.cos(angle);
+        const y = radius * Math.sin(angle);
+
+        points.push({ x, y });
+    }
+
+    return points;
+}
