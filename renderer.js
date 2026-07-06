@@ -28,20 +28,19 @@ export function renderPattern(canvas, data) {
 
     const ctx = canvas.getContext("2d");
 
-    // キャンバス初期化
     clearCanvas(ctx, canvas);
 
-    // スケール（mm → px）
-    const scale = 2; // 仮固定（後でDPI対応）
+    const scale = 2;
 
-    // 中心
     const centerX = canvas.width / 2;
     const centerY = canvas.height / 2;
 
-    // 点描画
-    drawPoints(ctx, data.points, centerX, centerY, scale);
+    // 主管
+    drawPoints(ctx, data.points.main, centerX, centerY, scale);
 
-    // 外枠情報（デバッグ用）
+    // 枝管（少しずらして見やすく）
+    drawPoints(ctx, data.points.branch, centerX + 80, centerY, scale);
+
     drawInfo(ctx, data);
 }
 
