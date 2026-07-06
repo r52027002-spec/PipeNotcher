@@ -27,16 +27,18 @@ export function generateIntersectionPattern(options) {
 
     validateConfig(config);
 
+    const points = generatePipeCircle({
+        diameter: config.mainDiameter,
+        divisions: config.divisions
+    });
+
     return {
-        points: [], // v0.1で生成予定
-
-        width: 0,
-        height: 0,
-
+        points,
+        width: config.mainDiameter,
+        height: config.mainDiameter,
         mainDiameter: config.mainDiameter,
         branchDiameter: config.branchDiameter,
         angle: config.angle,
-
         divisions: config.divisions
     };
 }
@@ -146,4 +148,32 @@ export function translatePoint(point, dx, dy) {
         x: point.x + dx,
         y: point.y + dy
     };
+}
+/**
+ * 円周点列を生成（中心基準）
+ *
+ * @param {Object} options
+ * @param {number} options.diameter
+ * @param {number} options.divisions
+ * @returns {Array<{x:number,y:number}>}
+ */
+export function generatePipeCircle(options) {
+
+    const diameter = options.diameter;
+    const divisions = options.divisions;
+
+    const radius = diameter / 2;
+    const points = [];
+
+    for (let i = 0; i <= divisions; i++) {
+
+        const theta = (Math.PI * 2 * i) / divisions;
+
+        points.push({
+            x: radius * Math.cos(theta),
+            y: radius * Math.sin(theta)
+        });
+    }
+
+    return points;
 }
