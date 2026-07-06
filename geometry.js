@@ -52,6 +52,14 @@ branchPoints = positionBranchPipe(branchPoints, 60);
             main: mainPoints,
             branch: branchPoints
         },
+        // ★追加
+    intersectionCurve:
+        calculateIntersectionCurve({
+            mainDiameter: config.mainDiameter,
+            branchDiameter: config.branchDiameter,
+            angle: config.angle,
+            divisions: config.divisions
+        }),
 
         width: config.mainDiameter,
         height: config.mainDiameter,
