@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>PipeNotcher</title>
+    <style>
+        body {
+            margin: 0;
+            background: #f5f5f5;
+        }
+        canvas {
+            display: block;
+            margin: auto;
+            background: white;
+        }
+    </style>
+</head>
+<body>
+
+<canvas id="canvas" width="800" height="600"></canvas>
+
+<script type="module">
+import { generateIntersectionPattern } from "./geometry.js";
+import { renderPattern } from "./renderer.js";
+
+// テストデータ
+const data = generateIntersectionPattern({
+    mainDiameter: 48.6,
+    branchDiameter: 34,
+    angle: 90,
+    divisions: 180
+});
+
+const canvas = document.getElementById("canvas");
+
+renderPattern(canvas, data);
+</script>
+
+</body>
+</html>
