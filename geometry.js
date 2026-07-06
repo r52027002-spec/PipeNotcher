@@ -44,6 +44,9 @@ export function generateIntersectionPattern(options) {
     // ④ 枝管を回転（これが“パイプが刺さる”方向）
     branchPoints = branchPoints.map(p => rotatePoint(p, angleRad));
 
+// 👉 追加：位置決め
+branchPoints = positionBranchPipe(branchPoints, 60);
+
     return {
         points: {
             main: mainPoints,
@@ -194,4 +197,14 @@ export function generatePipeCircle(options) {
     }
 
     return points;
+}
+/**
+ * 枝管を主管へ“配置”する（相貫準備）
+ */
+export function positionBranchPipe(branchPoints, distance = 50) {
+
+    return branchPoints.map(p => ({
+        x: p.x,
+        y: p.y + distance
+    }));
 }
