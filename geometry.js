@@ -1,1 +1,93 @@
+/**
+ * ============================================================
+ * PipeNotcher
+ * geometry.js
+ * ------------------------------------------------------------
+ * 相貫線計算エンジン（コア）
+ *
+ * v0.0.3
+ * ・入力バリデーション
+ * ・内部データ整形
+ * ・基本構造のみ
+ *
+ * ※まだ相貫線計算はしない（設計段階）
+ * ============================================================
+ */
 
+import { PIPE_SIZES, GEOMETRY } from "./config.js";
+import { clamp } from "./utils.js";
+
+/**
+ * メイン関数
+ * 相貫線パターン生成（将来ここが中核になる）
+ */
+export function generateIntersectionPattern(options) {
+
+    const config = normalizeInput(options);
+
+    validateConfig(config);
+
+    return {
+        points: [], // v0.1で生成予定
+
+        width: 0,
+        height: 0,
+
+        mainDiameter: config.mainDiameter,
+        branchDiameter: config.branchDiameter,
+        angle: config.angle,
+
+        divisions: config.divisions
+    };
+}
+
+/**
+ * 入力を正規化する
+ */
+function normalizeInput(options) {
+
+    const mainDiameter = Number(options.mainDiameter);
+    const branchDiameter = Number(options.branchDiameter);
+    const angle = Number(options.angle);
+    const divisions = options.divisions
+        ? Number(options.divisions)
+        : GEOMETRY.divisions;
+
+    return {
+        mainDiameter,
+        branchDiameter,
+        angle,
+        divisions
+    };
+}
+
+/**
+ * 入力チェック
+ */
+function validateConfig(config) {
+
+    if (!isValidPipe(config.mainDiameter)) {
+        throw new Error("Invalid main diameter");
+    }
+
+    if (!isValidPipe(config.branchDiameter)) {
+        throw new Error("Invalid branch diameter");
+    }
+
+    if (config.angle <= 0 || config.angle >= 180) {
+        throw new Error("Invalid angle");
+    }
+
+    if (config.divisions < GEOMETRY.minDivisions ||
+        config.divisions > GEOMETRY.maxDivisions) {
+        throw new Error("Invalid divisions");
+    }
+}
+
+/**
+ * パイプ径チェック
+ */
+function isValidPipe(diameter) {
+
+    return PIPE_SIZES.includes(diameter);
+}
