@@ -14,8 +14,8 @@
  * ============================================================
  */
 
-import { generatePipeCircle } from "./geometry.js";
 import { degreeToRadian, rotatePoint } from "./utils.js";
+import { GEOMETRY, PIPE_SIZES } from "./config.js";
 
 /**
  * 相貫パターン（主管＋枝管）
