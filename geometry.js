@@ -14,12 +14,11 @@
  * ============================================================
  */
 
-import { PIPE_SIZES, GEOMETRY } from "./config.js";
-import { clamp } from "./utils.js";
+import { generatePipeCircle } from "./geometry.js";
+import { degreeToRadian, rotatePoint } from "./utils.js";
 
 /**
- * メイン関数
- * 相貫線パターン生成（将来ここが中核になる）
+ * 相貫パターン（主管＋枝管）
  */
 export function generateIntersectionPattern(options) {
 
@@ -27,18 +26,37 @@ export function generateIntersectionPattern(options) {
 
     validateConfig(config);
 
-    const points = generatePipeCircle({
+    // ① 主管（中心）
+    const mainPoints = generatePipeCircle({
         diameter: config.mainDiameter,
         divisions: config.divisions
     });
 
+    // ② 枝管（小さい円）
+    let branchPoints = generatePipeCircle({
+        diameter: config.branchDiameter,
+        divisions: config.divisions
+    });
+
+    // ③ 角度をラジアンに変換
+    const angleRad = degreeToRadian(config.angle);
+
+    // ④ 枝管を回転（これが“パイプが刺さる”方向）
+    branchPoints = branchPoints.map(p => rotatePoint(p, angleRad));
+
     return {
-        points,
+        points: {
+            main: mainPoints,
+            branch: branchPoints
+        },
+
         width: config.mainDiameter,
         height: config.mainDiameter,
+
         mainDiameter: config.mainDiameter,
         branchDiameter: config.branchDiameter,
         angle: config.angle,
+
         divisions: config.divisions
     };
 }
