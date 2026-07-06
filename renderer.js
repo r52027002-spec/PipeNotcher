@@ -40,8 +40,57 @@ export function renderPattern(canvas, data) {
 
     // 枝管（少しずらして見やすく）
     drawPoints(ctx, data.points.branch, centerX + 80, centerY, scale);
-
+// 相貫線（展開図）
+drawIntersectionCurve(
+    ctx,
+    data.intersectionCurve,
+    50,
+    canvas.height - 100,
+    scale
+);
     drawInfo(ctx, data);
+    /**
+ * 相貫線描画
+ */
+function drawIntersectionCurve(
+    ctx,
+    curve,
+    offsetX,
+    offsetY,
+    scale
+) {
+
+    if (!curve || curve.length === 0) return;
+
+
+    ctx.strokeStyle = "#0000ff";
+    ctx.lineWidth = 2;
+
+
+    ctx.beginPath();
+
+
+    const first = curve[0];
+
+    ctx.moveTo(
+        offsetX + first.x * scale,
+        offsetY - first.y * scale
+    );
+
+
+    for (let i = 1; i < curve.length; i++) {
+
+        const p = curve[i];
+
+        ctx.lineTo(
+            offsetX + p.x * scale,
+            offsetY - p.y * scale
+        );
+
+    }
+
+
+    ctx.stroke();
 }
 
 /**
