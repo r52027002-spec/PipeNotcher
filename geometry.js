@@ -229,3 +229,79 @@ export function calculateIntersectionProfile(config) {
 
     return result;
 }
+/**
+ * 円柱相貫線計算（v0.1 prototype）
+ *
+ * mainDiameter : 主管外径
+ * branchDiameter : 枝管外径
+ * angle : 交差角
+ * divisions : 分割数
+ *
+ * 戻り値:
+ * [
+ *   {
+ *     angle: 円周角度,
+ *     x: 展開図X座標,
+ *     y: 切断高さ
+ *   }
+ * ]
+ */
+export function calculateIntersectionCurve(options) {
+
+    const mainRadius = options.mainDiameter / 2;
+    const branchRadius = options.branchDiameter / 2;
+    const intersectionAngle =
+        degreeToRadian(options.angle);
+
+    const divisions = options.divisions ?? 180;
+
+    const points = [];
+
+
+    for (let i = 0; i <= divisions; i++) {
+
+        // 枝管円周上の角度
+        const theta =
+            (Math.PI * 2 * i) / divisions;
+
+
+        /*
+         * 枝管展開位置
+         *
+         * 円周長を横方向へ展開
+         */
+        const x =
+            branchRadius * theta;
+
+
+        /*
+         * 相貫高さ計算
+         *
+         * 90°基準
+         */
+        const y =
+            mainRadius -
+            Math.sqrt(
+                Math.max(
+                    0,
+                    mainRadius * mainRadius -
+                    Math.pow(
+                        branchRadius *
+                        Math.sin(theta),
+                        2
+                    )
+                )
+            );
+
+
+        points.push({
+            angle: theta,
+            x: x,
+            y: y
+        });
+
+    }
+
+
+    return points;
+}
