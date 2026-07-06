@@ -25,6 +25,8 @@ import { DRAW } from "./config.js";
 export function renderPattern(canvas, data) {
 
     if (!canvas || !data) return;
+    
+    console.log(data);
 
     const ctx = canvas.getContext("2d");
 
