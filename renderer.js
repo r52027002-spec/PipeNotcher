@@ -51,6 +51,7 @@ drawIntersectionCurve(
     scale
 );
     drawInfo(ctx, data);
+    }
     /**
  * 相貫線描画
  */
