@@ -20,31 +20,7 @@
 <canvas id="canvas" width="800" height="600"></canvas>
 
 <script type="module">
-import { generateIntersectionPattern } from "./geometry.js";
-import { renderPattern } from "./renderer.js";
-console.log("START");
-
-// テストデータ
-const data = generateIntersectionPattern({
-    mainDiameter: 48.6,
-    branchDiameter: 34,
-    angle: 90,
-    divisions: 180
-});
-
-console.log("DATA", data);
-
-const canvas = document.getElementById("canvas");
-
-renderPattern(canvas, data);
-
-alert("読み込み成功");
-
-}catch(e) {
-
-console.error("error",e);
-
-}
+alert("index開始");
 </script>
 
 </body>
